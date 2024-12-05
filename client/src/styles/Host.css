@@ -9,7 +9,18 @@
 
 .slider-container {
   width: 70%;
-  padding-top: 10%;
+  padding-top: 7%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+.input-container > input {
+  margin-top: 10%;
+  padding: 3% 5%;
 }
 
 .button-start-game {

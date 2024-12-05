@@ -11,7 +11,11 @@ const marks = [
 ];
 
 export default function Host() {
-  const [numberOfPlayers] = useState(2);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(2);
+
+  const handleNumberOfPlayersChange = (_: Event, value: number | number[]) => {
+    setNumberOfPlayers(value as number);
+  };
 
   return (
     <div className="host-container">
@@ -27,7 +31,21 @@ export default function Host() {
           max={6}
           color="warning"
           value={numberOfPlayers}
+          onChange={handleNumberOfPlayersChange}
         />
+      </div>
+      <div className="input-container">
+        {Array.from({ length: numberOfPlayers }).map((_, index) => {
+          const uniqueId = `player-${index}`;
+          return (
+            <input
+              key={uniqueId}
+              type="text"
+              placeholder={`Joueur ${index + 1}`}
+              className="input-player"
+            />
+          );
+        })}
       </div>
       <button type="button" className="button-start-game">
         Lancer la partie
