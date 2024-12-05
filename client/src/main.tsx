@@ -10,6 +10,8 @@ import App from "./App";
 import Home from "./pages/Home";
 import Host from "./pages/Host";
 import Join from "./pages/Join";
+import PlayerSelect from "./pages/PlayerSelect";
+import Winner from "./pages/Winner";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
         path: "/join",
         element: <Join />,
       },
+      { path: "/winner/:game_id", element: <Winner /> },
+      { path: "/player-select/:game_id", element: <PlayerSelect /> },
       {
         path: "/host",
         element: <Host />,
