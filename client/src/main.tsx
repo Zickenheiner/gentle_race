@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 // Import the main app component
 import App from "./App";
 import Home from "./pages/Home";
+import Host from "./pages/Host";
 import Join from "./pages/Join";
 import PlayerSelect from "./pages/PlayerSelect";
 import Winner from "./pages/Winner";
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       },
       { path: "/winner/:game_id", element: <Winner /> },
       { path: "/player-select/:game_id", element: <PlayerSelect /> },
+      {
+        path: "/host",
+        element: <Host />,
+      },
     ],
   },
   // Try adding a new route! For example, "/about" with an About component
