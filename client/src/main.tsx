@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 import Join from "./pages/Join";
 
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/join",
         element: <Join />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
       },
     ],
   },
