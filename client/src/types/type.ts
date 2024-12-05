@@ -10,3 +10,8 @@ export interface Player {
   joker: [];
   color: string;
 }
+
+export interface Game {
+  tour: number;
+  allPlayers: Player[];
+}

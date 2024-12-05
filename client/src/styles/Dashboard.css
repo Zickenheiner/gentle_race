@@ -4,8 +4,8 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  gap: 50px;
 }
 
 .dashboard-button {
@@ -21,4 +21,17 @@
 .dashboard-button:hover {
   background-color: #000000;
   color: #ffffff;
+}
+
+.dashboard-title-bar {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.global-score-container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
