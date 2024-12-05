@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/Host.css";
 import Slider from "@mui/material/Slider";
 import { useNavigate } from "react-router-dom";
+const { VITE_API_URL } = import.meta.env;
 
 const marks = [
   { value: 2, label: "2" },
@@ -21,7 +22,7 @@ export default function Host() {
       document.querySelectorAll<HTMLInputElement>(".input-player"),
     ).map((input) => input.value);
 
-    const response = await fetch(`${process.env.VITE_API_URL}/api/games`, {
+    const response = await fetch(`${VITE_API_URL}/api/games`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
