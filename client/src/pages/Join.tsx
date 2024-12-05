@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../styles/Join.css";
 import { useEffect, useState } from "react";
+const { VITE_API_URL } = import.meta.env;
 
 export default function Join() {
   const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Join() {
 
   useEffect(() => {
     const fetchGames = async () => {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/games`);
+      const response = await fetch(`${VITE_API_URL}/api/games`);
       const data = await response.json();
       setGames(data);
     };

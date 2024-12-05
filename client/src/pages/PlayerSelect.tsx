@@ -3,6 +3,8 @@ import "../styles/PlayerSelect.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePlayer } from "../contexts/PlayerProvider";
 import type { Player } from "../types/type";
+const { VITE_API_URL } = import.meta.env;
+
 export default function PlayerSelect() {
   const { game_id } = useParams();
   const [players, setPlayers] = useState<Player[]>([]);
@@ -11,7 +13,7 @@ export default function PlayerSelect() {
 
   useEffect(() => {
     const fetchPlayers = async () => {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/games`);
+      const response = await fetch(`${VITE_API_URL}/api/games`);
       const data = await response.json();
 
       const game = data.find((game: { id: string }) => game.id === game_id);

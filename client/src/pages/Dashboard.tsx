@@ -2,13 +2,14 @@ import { useParams } from "react-router-dom";
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import type { Player } from "../types/type";
+const { VITE_API_URL } = import.meta.env;
 
 export default function Dashboard() {
   const { player_id, game_id } = useParams();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   useEffect(() => {
     const fetchPlayers = async () => {
-      const response = await fetch(`${process.env.VITE_API_URL}/api/games`);
+      const response = await fetch(`${VITE_API_URL}/api/games`);
       const data = await response.json();
 
       const game = data.find((game: { id: string }) => game.id === game_id);
