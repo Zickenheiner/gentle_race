@@ -20,13 +20,20 @@
 
 .input-container > input {
   margin-top: 10%;
-  padding: 3% 5%;
+  padding: 4% 6%;
+  border: none;
+  border-radius: 2vw;
+  background-color: #e8d1ac;
+}
+
+.input-container > input::placeholder {
+  color: #262626;
 }
 
 .button-start-game {
   margin-top: 10%;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   border: none;
-  background-color: rgb(255, 255, 255);
+  background-color: #c5a574;
 }

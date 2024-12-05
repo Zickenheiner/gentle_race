@@ -30,6 +30,7 @@ export default function Join() {
     <div className="join-container">
       <p>Renseigner l'ID de la partie</p>
       <input
+        className="join-input"
         type="text"
         placeholder="ID de la partie"
         style={{ textAlign: "center" }}

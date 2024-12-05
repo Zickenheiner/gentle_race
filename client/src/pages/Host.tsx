@@ -65,9 +65,14 @@ export default function Host() {
           marks={marks}
           min={2}
           max={6}
-          color="warning"
           value={numberOfPlayers}
           onChange={handleNumberOfPlayersChange}
+          sx={{
+            color: "#c5a574",
+            "& .MuiSlider-markLabel": {
+              color: "#c5a574",
+            },
+          }}
         />
       </div>
       <div className="input-container">
