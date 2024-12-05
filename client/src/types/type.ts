@@ -3,15 +3,17 @@ export interface PlayerContextType {
   setCurrentPlayer: (player: Player) => void;
 }
 
+export interface Game {
+  id: string;
+  allPlayers: Player[];
+  round: number;
+  winCondition: number;
+}
+
 export interface Player {
   id: string;
   name: string;
   score: number;
-  joker: [];
   color: string;
-}
-
-export interface Game {
-  tour: number;
-  allPlayers: Player[];
+  actionID: number;
 }
