@@ -6,20 +6,28 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 50px;
+}
+
+.join-input {
+  background-color: #f5e9d8;
+  border: none;
+  padding: 2% 4%;
+  border-radius: 2vw;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .join-button {
   width: 200px;
   height: 50px;
-  background-color: #ffffff;
-  border: 1.5px solid #000000;
+  background-color: #e8d1ac;
+  border: 1.5px solid #262626;
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
 }
 
 .join-button:hover {
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #262626;
+  color: #e8d1ac;
 }

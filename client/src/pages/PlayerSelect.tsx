@@ -26,19 +26,21 @@ export default function PlayerSelect() {
   return (
     <div className="player-select-container">
       <p>ID de la partie : {game_id}</p>
-      <h1>Sélectionnez votre nom!</h1>
-      {players.map((player) => (
-        <button
-          type="button"
-          key={player.id}
-          onClick={() => {
-            setCurrentPlayer(player);
-            navigate(`/dashboard/${game_id}/${player.id}`);
-          }}
-        >
-          {player.name}
-        </button>
-      ))}
+      <h2>Sélectionnez votre nom !</h2>
+      <div className="select-name-buttons">
+        {players.map((player) => (
+          <button
+            type="button"
+            key={player.id}
+            onClick={() => {
+              setCurrentPlayer(player);
+              navigate(`/dashboard/${game_id}/${player.id}`);
+            }}
+          >
+            {player.name}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
