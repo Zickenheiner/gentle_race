@@ -7,8 +7,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import { PlayerProvider } from "./contexts/PlayerProvider";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
+import Host from "./pages/Host";
 import Join from "./pages/Join";
 import PlayerSelect from "./pages/PlayerSelect";
 import Winner from "./pages/Winner";
@@ -44,8 +46,12 @@ const router = createBrowserRouter([
         element: <PlayerSelect />,
       },
       {
-        path: "/dashboard",
+        path: "/dashboard/:game_id/:player_id",
         element: <Dashboard />,
+      },
+      {
+        path: "/host",
+        element: <Host />,
       },
     ],
   },
@@ -63,7 +69,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <PlayerProvider>
+      <RouterProvider router={router} />
+    </PlayerProvider>
   </StrictMode>,
 );
 

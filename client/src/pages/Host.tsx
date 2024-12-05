@@ -1,0 +1,77 @@
+import { useState } from "react";
+import "../styles/Host.css";
+import Slider from "@mui/material/Slider";
+import { useNavigate } from "react-router-dom";
+
+const marks = [
+  { value: 2, label: "2" },
+  { value: 3, label: "3" },
+  { value: 4, label: "4" },
+  { value: 5, label: "5" },
+  { value: 6, label: "6" },
+];
+
+export default function Host() {
+  const navigate = useNavigate();
+  const [numberOfPlayers, setNumberOfPlayers] = useState(2);
+
+  const handleClickHost = async () => {
+    const players = Array.from(
+      document.querySelectorAll<HTMLInputElement>(".input-player"),
+    ).map((input) => input.value);
+
+    const response = await fetch("http://192.168.1.128:3310/api/games", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ numberOfPlayers, players }),
+    });
+    const data = await response.json();
+    navigate(`/player-select/${data.id}`);
+  };
+
+  const handleNumberOfPlayersChange = (_: Event, value: number | number[]) => {
+    setNumberOfPlayers(value as number);
+  };
+
+  return (
+    <div className="host-container">
+      <p>Nombre de joueur</p>
+      <div className="slider-container">
+        <Slider
+          aria-label="Nombre de joueur"
+          defaultValue={2}
+          shiftStep={10}
+          step={1}
+          marks={marks}
+          min={2}
+          max={6}
+          color="warning"
+          value={numberOfPlayers}
+          onChange={handleNumberOfPlayersChange}
+        />
+      </div>
+      <div className="input-container">
+        {Array.from({ length: numberOfPlayers }).map((_, index) => {
+          const uniqueId = `player-${index}`;
+          return (
+            <input
+              key={uniqueId}
+              type="text"
+              placeholder={`Joueur ${index + 1}`}
+              className="input-player"
+            />
+          );
+        })}
+      </div>
+      <button
+        type="button"
+        className="button-start-game"
+        onClick={handleClickHost}
+      >
+        Lancer la partie
+      </button>
+    </div>
+  );
+}
