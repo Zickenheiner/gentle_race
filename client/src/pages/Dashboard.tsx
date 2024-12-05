@@ -8,7 +8,7 @@ export default function Dashboard() {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   useEffect(() => {
     const fetchPlayers = async () => {
-      const response = await fetch("http://192.168.1.128:3310/api/games");
+      const response = await fetch(`${process.env.VITE_API_URL}/api/games`);
       const data = await response.json();
 
       const game = data.find((game: { id: string }) => game.id === game_id);
