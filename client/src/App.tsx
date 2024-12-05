@@ -1,3 +1,10 @@
+import { Outlet } from "react-router-dom";
+import "./App.css";
+
 export default function App() {
-  return <div>App</div>;
+  return (
+    <div>
+      <Outlet />
+    </div>
+  );
 }
