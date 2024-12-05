@@ -193,16 +193,37 @@ export const createGame: RequestHandler = (req, res) => {
     allPlayers.push(player);
   }
   const id = uid(6);
-  const game = { id, allPlayers, tour: 1, winCondition: 20 };
+  const game = { id, allPlayers, round: 1, winCondition: 20 };
   games.push(game);
   res.status(201).json({ id });
 };
 
 export const getNiceActions: RequestHandler = (req, res) => {
-  const { actionID } = req.params;
-  res.status(200).json(niceActions[Number.parseInt(actionID)]);
+  const { actionID } = req.query;
+
+  const action = niceActions.find((action) => action.id === actionID);
+  res.status(200).json(action);
+};
+
+export const updateScore: RequestHandler = (req, res) => {
+  const { playerId, gameId, score } = req.body;
+
+  const game = games.find((game) => game.id === gameId);
+
+  const player = game?.allPlayers.find((player) => player.id === playerId);
+
+  if (player) {
+    player.score += Number(score);
+    res.status(200).json(player);
+  } else {
+    res.status(404).json({ message: "Player not found" });
+  }
 };
 
 export const getGames: RequestHandler = (req, res) => {
   res.status(200).json(games);
+};
+
+export const getAllNiceActions: RequestHandler = (req, res) => {
+  res.status(200).json(niceActions);
 };

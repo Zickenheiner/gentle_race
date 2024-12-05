@@ -8,8 +8,10 @@ const router = express.Router();
 
 import {
   createGame,
+  getAllNiceActions,
   getGames,
   getNiceActions,
+  updateScore,
 } from "./modules/games/gamesActions";
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
@@ -20,6 +22,8 @@ router.post("/api/items", itemActions.add);
 router.post("/api/games", createGame);
 router.get("/api/games", getGames);
 router.get("/api/action", getNiceActions);
+router.get("/api/all-actions", getAllNiceActions);
+router.post("/api/score", updateScore);
 /* ************************************************************************* */
 
 export default router;

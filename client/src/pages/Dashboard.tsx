@@ -7,7 +7,10 @@ const { VITE_API_URL } = import.meta.env;
 export default function Dashboard() {
   const { player_id, game_id } = useParams();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
-  const [action, setAction] = useState<{ action: string } | null>(null);
+  const [action, setAction] = useState<{
+    action: string;
+    niveau: string;
+  } | null>(null);
   const [game, setGame] = useState<Game | null>(null);
 
   useEffect(() => {
@@ -27,16 +30,36 @@ export default function Dashboard() {
       const response = await fetch(
         `${VITE_API_URL}/api/action?actionID=${currentPlayer?.actionID}`,
       );
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       setAction(data);
     };
     fetchAction();
   }, [game_id, player_id, currentPlayer]);
+
+  const handleClickUpdateScore = async () => {
+    const points = action?.niveau;
+
+    await fetch(`${VITE_API_URL}/api/score`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        playerId: player_id,
+        gameId: game_id,
+        score: points,
+      }),
+    });
+  };
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-title-bar">
         <p>{currentPlayer?.name}</p>
-        <p>Tour {game?.tour}</p>
+        <p>Tour {game?.round}</p>
       </div>
       <div className="global-score-container">
         {game?.allPlayers.map((player) => (
@@ -51,8 +74,12 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-      <p>{currentPlayer?.name}</p>
       <p>{action?.action}</p>
+      <div>
+        <button onClick={handleClickUpdateScore} type="button">
+          Mission Accomplie
+        </button>
+      </div>
     </div>
   );
 }
