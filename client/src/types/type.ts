@@ -7,6 +7,6 @@ export interface Player {
   id: string;
   name: string;
   score: number;
-  joker: [];
+  actionID: string;
   color: string;
 }

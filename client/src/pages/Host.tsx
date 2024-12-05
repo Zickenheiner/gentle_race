@@ -27,7 +27,7 @@ export default function Host() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ numberOfPlayers, players }),
+      body: JSON.stringify({ players }),
     });
     const data = await response.json();
     navigate(`/player-select/${data.id}`);

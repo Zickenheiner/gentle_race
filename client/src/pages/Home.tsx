@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <button type="button" className="home-button" onClick={handleClickHost}>
-        Creer une partie
+        Créer une partie
       </button>
       <button type="button" className="home-button" onClick={handleClickJoin}>
         Rejoindre une partie

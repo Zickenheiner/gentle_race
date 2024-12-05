@@ -7,6 +7,7 @@ const { VITE_API_URL } = import.meta.env;
 export default function Dashboard() {
   const { player_id, game_id } = useParams();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+  const [action, setAction] = useState<{ action: string } | null>(null);
   useEffect(() => {
     const fetchPlayers = async () => {
       const response = await fetch(`${VITE_API_URL}/api/games`);
@@ -19,13 +20,19 @@ export default function Dashboard() {
       setCurrentPlayer(player);
     };
     fetchPlayers();
-  }, [game_id, player_id]);
+    const fetchAction = async () => {
+      const response = await fetch(
+        `${VITE_API_URL}/api/action?actionID=${currentPlayer?.actionID}`,
+      );
+      const data = await response.json();
+      setAction(data);
+    };
+    fetchAction();
+  }, [game_id, player_id, currentPlayer]);
   return (
     <div className="dashboard-container">
       <p>{currentPlayer?.name}</p>
-      <button type="button" className="dashboard-button">
-        Joker
-      </button>
+      <p>{action?.action}</p>
     </div>
   );
 }
