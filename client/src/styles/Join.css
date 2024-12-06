@@ -11,8 +11,9 @@
 .join-input {
   background-color: #f5e9d8;
   border: none;
-  padding: 2% 4%;
-  border-radius: 2vw;
+  width: 170px;
+  height: 30px;
+  border-radius: 8px;
   margin-top: 20px;
   margin-bottom: 50px;
 }

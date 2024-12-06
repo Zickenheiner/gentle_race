@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         element: <Join />,
       },
       {
-        path: "/winner/:game_id/:player",
+        path: "/winner/:game_id",
         element: <Winner />,
       },
       {

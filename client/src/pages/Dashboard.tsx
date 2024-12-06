@@ -4,9 +4,27 @@ import { useEffect, useState } from "react";
 import lapIcon from "../assets/images/circuit.png";
 import type { Game, Player } from "../types/type";
 const { VITE_API_URL } = import.meta.env;
+import blueCar from "../assets/images/blue_car.svg";
+import finishLine from "../assets/images/finish_line.png";
+import greenCar from "../assets/images/green_car.svg";
+import orangeCar from "../assets/images/orange_car.svg";
+import purpleCar from "../assets/images/purple_car.svg";
+import redCar from "../assets/images/red_car.svg";
+import yellowCar from "../assets/images/yellow_car.svg";
+import { usePlayer } from "../contexts/PlayerProvider";
+
+const cars: { [key: string]: string } = {
+  orangeCar,
+  blueCar,
+  greenCar,
+  redCar,
+  yellowCar,
+  purpleCar,
+};
 
 export default function Dashboard() {
   const { player_id, game_id } = useParams();
+  const { setWinnerPlayer } = usePlayer();
   const navigate = useNavigate();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [action, setAction] = useState<{
@@ -24,7 +42,8 @@ export default function Dashboard() {
       const game = data.find((game: { id: string }) => game.id === game_id);
       for (const player of game.allPlayers) {
         if (player.score >= 20) {
-          navigate(`/winner/${game.id}/${player.name}`);
+          setWinnerPlayer(player);
+          navigate(`/winner/${game.id}`);
         }
       }
       const player = game.allPlayers.find(
@@ -43,7 +62,7 @@ export default function Dashboard() {
       setAction(data);
     };
     fetchAction();
-  }, [game_id, player_id, currentPlayer, navigate]);
+  }, [game_id, player_id, currentPlayer, navigate, setWinnerPlayer]);
 
   const handleClickUpdateScore = async () => {
     await fetch(
@@ -100,26 +119,44 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="dashboard-title-bar">
-        <div>
-          <p>{currentPlayer?.name}</p>
+        <div className="current-player-name-and-image">
+          <img
+            className="current-player-car-img"
+            src={cars[`${currentPlayer?.color}Car`]}
+            alt=""
+          />
+          <div>
+            <p>{currentPlayer?.name}</p>
+          </div>
         </div>
         <div className="lap-container">
           <img className="lap-icon" src={lapIcon} alt="" />
-          <p>Tour {game?.round}</p>
+          <p>Jour {game?.round}</p>
         </div>
       </div>
       <div className="global-score-container">
-        {game?.allPlayers.map((player) => (
-          <div
-            key={player.id}
-            className={`player-score-container ${
-              player.id === currentPlayer?.id ? "current-player" : ""
-            }`}
-          >
-            <p>{`${player.score} ${player.score > 1 ? " pts" : " pt"}`}</p>
-            <p>{player.name}</p>
-          </div>
-        ))}
+        {game?.allPlayers
+          .sort(
+            (a: { score: number }, b: { score: number }) => a.score - b.score,
+          )
+          .map((player, index) => (
+            <div
+              key={player.id}
+              className={`player-score-container ${
+                player.id === currentPlayer?.id ? "current-player" : ""
+              }`}
+            >
+              <p>{`${player.score} ${player.score > 1 ? " pts" : " pt"}`}</p>
+              <img
+                className="car-img"
+                src={cars[`${player.color}Car`]}
+                alt=""
+              />
+              <p>{player.name}</p>
+              <p className="position-of-player">{`${game.allPlayers.length - index > 1 ? `${game.allPlayers.length - index}ème` : `${game.allPlayers.length - index}er`} `}</p>
+            </div>
+          ))}
+        <img className="finish-line" src={finishLine} alt="" />
       </div>
       {!currentPlayer?.isPlaying ? (
         <div className="action-container">
