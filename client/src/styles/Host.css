@@ -1,0 +1,48 @@
+.host-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slider-container {
+  width: 70%;
+  padding-top: 7%;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+.input-container > input {
+  margin-top: 10%;
+  padding: 4% 6%;
+  border: none;
+  border-radius: 2vw;
+  background-color: #e8d1ac;
+}
+
+.input-container > input::placeholder {
+  color: #262626;
+}
+
+.button-start-game {
+  width: 200px;
+  height: 50px;
+  background-color: #c5a574;
+  border: 1.5px solid #101010;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button-start-game:hover {
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
+}

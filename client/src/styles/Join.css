@@ -1,0 +1,35 @@
+.join-container {
+  padding: 30px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.join-input {
+  background-color: #f5e9d8;
+  border: none;
+  width: 170px;
+  height: 30px;
+  border-radius: 8px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.join-button {
+  width: 200px;
+  height: 50px;
+  background-color: #c5a574;
+  border: 1.5px solid #101010;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.join-button:hover {
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
+}
