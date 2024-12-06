@@ -20,7 +20,11 @@ export default function Winner() {
   const { winnerPlayer } = usePlayer();
   return (
     <div className="winner-container">
-      <h1>Winner is {winnerPlayer?.name}</h1>
+      <h1>
+        Bravo 🏆{winnerPlayer?.name}🏆,
+        <br />
+        tu es le/la plus bienveillant(e)
+      </h1>
       <img
         className="winner-player-img"
         src={cars[`${winnerPlayer?.color}Car`]}
