@@ -1,6 +1,8 @@
 export interface PlayerContextType {
   currentPlayer: Player | null;
   setCurrentPlayer: (player: Player) => void;
+  winnerPlayer: Player | null;
+  setWinnerPlayer: (player: Player) => void;
 }
 
 export interface Game {
