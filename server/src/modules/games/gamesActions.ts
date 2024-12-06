@@ -179,15 +179,10 @@ const niceActions = [
 ];
 
 export const createGame: RequestHandler = (req, res) => {
-  const { players } = req.query;
-  if (!players || typeof players !== "string") {
-    res.status(400).json({ message: "Players parameter is required" });
-    return;
-  }
+  const { players } = req.body;
   const allPlayers = [];
   const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
-
-  for (const namePlayer of players.split(",")) {
+  for (const namePlayer of players) {
     const randomCardId = Math.floor(Math.random() * niceActions.length);
     const randomColor = Math.floor(Math.random() * colors.length);
     const player = {
