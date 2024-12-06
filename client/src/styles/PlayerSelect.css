@@ -1,0 +1,31 @@
+.player-select-container {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  gap: 50px;
+}
+
+.select-name-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.select-name-buttons button {
+  width: 200px;
+  height: 50px;
+  background-color: #c5a574;
+  border: 1.5px solid #101010;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.select-name-buttons button:hover {
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
+}
