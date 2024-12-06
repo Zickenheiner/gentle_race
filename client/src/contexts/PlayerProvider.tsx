@@ -5,8 +5,11 @@ export const PlayerContext = createContext<PlayerContextType | null>(null);
 
 export function PlayerProvider({ children }: { children: ReactNode }) {
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
+  const [winnerPlayer, setWinnerPlayer] = useState<Player | null>(null);
   return (
-    <PlayerContext.Provider value={{ currentPlayer, setCurrentPlayer }}>
+    <PlayerContext.Provider
+      value={{ currentPlayer, setCurrentPlayer, winnerPlayer, setWinnerPlayer }}
+    >
       {children}
     </PlayerContext.Provider>
   );
