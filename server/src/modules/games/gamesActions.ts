@@ -180,17 +180,21 @@ const niceActions = [
 
 export const createGame: RequestHandler = (req, res) => {
   const { players } = req.body;
-  const randomCardId = Math.floor(Math.random() * niceActions.length);
   const allPlayers = [];
+  const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
   for (const namePlayer of players) {
+    const randomCardId = Math.floor(Math.random() * niceActions.length);
+    const randomColor = Math.floor(Math.random() * colors.length);
     const player = {
       id: uid(6),
       name: namePlayer,
       actionID: randomCardId,
       score: 0,
-      color: "red",
+      color: colors[randomColor],
+      isPlaying: false,
     };
     allPlayers.push(player);
+    colors.splice(randomColor, 1);
   }
   const id = uid(6);
   const game = { id, allPlayers, round: 1, winCondition: 20 };
@@ -226,4 +230,19 @@ export const getGames: RequestHandler = (req, res) => {
 
 export const getAllNiceActions: RequestHandler = (req, res) => {
   res.status(200).json(niceActions);
+};
+
+export const changeIsPlaying: RequestHandler = (req, res) => {
+  const { gameId, playerId } = req.body;
+
+  const game = games.find((game) => game.id === gameId);
+
+  const player = game?.allPlayers.find((player) => player.id === playerId);
+
+  if (player) {
+    player.isPlaying = !player.isPlaying;
+    res.status(200).json(player);
+  } else {
+    res.status(404).json({ message: "Player not found" });
+  }
 };

@@ -7,6 +7,7 @@ const router = express.Router();
 /* ************************************************************************* */
 
 import {
+  changeIsPlaying,
   createGame,
   getAllNiceActions,
   getGames,
@@ -24,6 +25,7 @@ router.get("/api/games", getGames);
 router.get("/api/action", getNiceActions);
 router.get("/api/all-actions", getAllNiceActions);
 router.post("/api/score", updateScore);
+router.post("/api/is-playing", changeIsPlaying);
 /* ************************************************************************* */
 
 export default router;

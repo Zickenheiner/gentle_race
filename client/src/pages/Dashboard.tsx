@@ -12,6 +12,7 @@ export default function Dashboard() {
     niveau: string;
   } | null>(null);
   const [game, setGame] = useState<Game | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPlayers = async () => {
@@ -24,6 +25,8 @@ export default function Dashboard() {
       );
       setCurrentPlayer(player);
       setGame(game);
+      setGame(game);
+      setLoading(false);
     };
     fetchPlayers();
     const fetchAction = async () => {
@@ -53,7 +56,21 @@ export default function Dashboard() {
         score: points,
       }),
     });
+    await fetch(`${VITE_API_URL}/api/is-playing`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        playerId: player_id,
+        gameId: game_id,
+      }),
+    });
   };
+
+  if (loading) {
+    return <div> </div>;
+  }
 
   return (
     <div className="dashboard-container">
@@ -74,12 +91,18 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-      <p>{action?.action}</p>
-      <div>
-        <button onClick={handleClickUpdateScore} type="button">
-          Mission Accomplie
-        </button>
-      </div>
+      {!currentPlayer?.isPlaying ? (
+        <div>
+          <p>{action?.action}</p>
+          <div>
+            <button onClick={handleClickUpdateScore} type="button">
+              Mission Accomplie
+            </button>
+          </div>
+        </div>
+      ) : (
+        <p>Mission accomplie à demain pour une nouvelle bonne action</p>
+      )}
     </div>
   );
 }
