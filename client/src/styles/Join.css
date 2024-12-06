@@ -20,14 +20,15 @@
 .join-button {
   width: 200px;
   height: 50px;
-  background-color: #e8d1ac;
-  border: 1.5px solid #262626;
+  background-color: #c5a574;
+  border: 1.5px solid #101010;
   border-radius: 5px;
   font-size: 20px;
   cursor: pointer;
 }
 
 .join-button:hover {
-  background-color: #262626;
-  color: #e8d1ac;
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
 }

@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 5%;
+  margin-bottom: 5%;
 }
 
 .input-container > input {
@@ -31,9 +32,17 @@
 }
 
 .button-start-game {
-  margin-top: 10%;
-  padding: 1rem;
-  border-radius: 0.6rem;
-  border: none;
+  width: 200px;
+  height: 50px;
   background-color: #c5a574;
+  border: 1.5px solid #101010;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.button-start-game:hover {
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
 }
