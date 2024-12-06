@@ -21,10 +21,15 @@ export default function Host() {
     const players = Array.from(
       document.querySelectorAll<HTMLInputElement>(".input-player"),
     ).map((input) => input.value);
+
     const response = await fetch(
       `${VITE_API_URL}/api/games?players=${players}`,
       {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ players }),
       },
     );
     const data = await response.json();
