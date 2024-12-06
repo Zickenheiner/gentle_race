@@ -179,10 +179,15 @@ const niceActions = [
 ];
 
 export const createGame: RequestHandler = (req, res) => {
-  const { players } = req.body;
+  const { players } = req.query;
+  if (!players || typeof players !== "string") {
+    res.status(400).json({ message: "Players parameter is required" });
+    return;
+  }
   const allPlayers = [];
   const colors = ["red", "blue", "green", "yellow", "purple", "orange"];
-  for (const namePlayer of players) {
+
+  for (const namePlayer of players.split(",")) {
     const randomCardId = Math.floor(Math.random() * niceActions.length);
     const randomColor = Math.floor(Math.random() * colors.length);
     const player = {
@@ -210,7 +215,7 @@ export const getNiceActions: RequestHandler = (req, res) => {
 };
 
 export const updateScore: RequestHandler = (req, res) => {
-  const { playerId, gameId, score } = req.body;
+  const { playerId, gameId, score } = req.query;
 
   const game = games.find((game) => game.id === gameId);
 
@@ -233,7 +238,7 @@ export const getAllNiceActions: RequestHandler = (req, res) => {
 };
 
 export const changeIsPlaying: RequestHandler = (req, res) => {
-  const { gameId, playerId } = req.body;
+  const { gameId, playerId } = req.query;
 
   const game = games.find((game) => game.id === gameId);
 
@@ -244,5 +249,24 @@ export const changeIsPlaying: RequestHandler = (req, res) => {
     res.status(200).json(player);
   } else {
     res.status(404).json({ message: "Player not found" });
+  }
+};
+
+export const nextRound: RequestHandler = (req, res) => {
+  const { gameId } = req.query;
+
+  const game = games.find((game) => game.id === gameId);
+
+  for (const player of game?.allPlayers ?? []) {
+    const randomCardId = Math.floor(Math.random() * niceActions.length);
+    player.isPlaying = false;
+    player.actionID = randomCardId;
+  }
+
+  if (game) {
+    game.round += 1;
+    res.status(200).json(game);
+  } else {
+    res.status(404).json({ message: "Game not found" });
   }
 };
