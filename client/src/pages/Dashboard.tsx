@@ -116,10 +116,14 @@ export default function Dashboard() {
         ))}
       </div>
       {!currentPlayer?.isPlaying ? (
-        <div>
-          <p>{action?.action}</p>
+        <div className="action-container">
+          <p className="action-card">{action?.action}</p>
           <div>
-            <button onClick={handleClickUpdateScore} type="button">
+            <button
+              className="dashboard-button"
+              onClick={handleClickUpdateScore}
+              type="button"
+            >
               Mission Accomplie
             </button>
           </div>
@@ -127,7 +131,7 @@ export default function Dashboard() {
       ) : (
         <p>Mission accomplie ! À demain pour une nouvelle bonne action</p>
       )}
-      <button type="button" onClick={nextRound}>
+      <button className="dashboard-button" type="button" onClick={nextRound}>
         Jour suivant
       </button>
     </div>

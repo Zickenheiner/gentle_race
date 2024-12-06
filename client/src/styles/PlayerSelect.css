@@ -15,8 +15,17 @@
 }
 
 .select-name-buttons button {
-  padding: 0.4rem 0.8rem;
+  width: 200px;
+  height: 50px;
   background-color: #c5a574;
-  border: none;
-  border-radius: 0.3rem;
+  border: 1.5px solid #101010;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.select-name-buttons button:hover {
+  background-color: #101010;
+  color: #c5a574;
+  border: 1.5px solid #c5a574;
 }
