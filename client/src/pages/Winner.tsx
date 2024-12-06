@@ -23,7 +23,7 @@ export default function Winner() {
       <h1>
         Bravo 🏆 {winnerPlayer?.name} 🏆,
         <br />
-        tu es le/la plus malveillant(e)
+        tu es le/la plus bienveillant(e) !
       </h1>
       <img
         className="winner-player-img"
