@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
+import lapIcon from "../assets/images/circuit.png";
 import type { Game, Player } from "../types/type";
 const { VITE_API_URL } = import.meta.env;
 
@@ -99,8 +100,13 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
       <div className="dashboard-title-bar">
-        <p>{currentPlayer?.name}</p>
-        <p>Tour {game?.round}</p>
+        <div>
+          <p>{currentPlayer?.name}</p>
+        </div>
+        <div className="lap-container">
+          <img className="lap-icon" src={lapIcon} alt="" />
+          <p>Tour {game?.round}</p>
+        </div>
       </div>
       <div className="global-score-container">
         {game?.allPlayers.map((player) => (
