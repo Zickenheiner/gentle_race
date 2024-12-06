@@ -12,6 +12,7 @@ import {
   getAllNiceActions,
   getGames,
   getNiceActions,
+  nextRound,
   updateScore,
 } from "./modules/games/gamesActions";
 // Define item-related routes
@@ -26,6 +27,7 @@ router.get("/api/action", getNiceActions);
 router.get("/api/all-actions", getAllNiceActions);
 router.post("/api/score", updateScore);
 router.post("/api/is-playing", changeIsPlaying);
+router.post("/api/next-round", nextRound);
 /* ************************************************************************* */
 
 export default router;
