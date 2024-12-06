@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
 import type { Game, Player } from "../types/type";
@@ -6,6 +6,7 @@ const { VITE_API_URL } = import.meta.env;
 
 export default function Dashboard() {
   const { player_id, game_id } = useParams();
+  const navigate = useNavigate();
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   const [action, setAction] = useState<{
     action: string;
@@ -20,11 +21,15 @@ export default function Dashboard() {
       const data = await response.json();
 
       const game = data.find((game: { id: string }) => game.id === game_id);
+      for (const player of game.allPlayers) {
+        if (player.score >= 20) {
+          navigate(`/winner/${game.id}/${player.name}`);
+        }
+      }
       const player = game.allPlayers.find(
         (player: { id: string }) => player.id === player_id,
       );
       setCurrentPlayer(player);
-      setGame(game);
       setGame(game);
       setLoading(false);
     };
@@ -33,40 +38,59 @@ export default function Dashboard() {
       const response = await fetch(
         `${VITE_API_URL}/api/action?actionID=${currentPlayer?.actionID}`,
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
       const data = await response.json();
       setAction(data);
     };
     fetchAction();
-  }, [game_id, player_id, currentPlayer]);
+  }, [game_id, player_id, currentPlayer, navigate]);
 
   const handleClickUpdateScore = async () => {
-    const points = action?.niveau;
+    await fetch(
+      `${VITE_API_URL}/api/score?playerId=${player_id}&gameId=${game_id}&score=${action?.niveau}`,
+      {
+        method: "POST",
+      },
+    );
+    await fetch(
+      `${VITE_API_URL}/api/is-playing?gameId=${game_id}&playerId=${player_id}`,
+      {
+        method: "POST",
+      },
+    );
+  };
 
-    await fetch(`${VITE_API_URL}/api/score`, {
+  function scheduleTaskAtMidnight(task: () => void) {
+    function scheduleMidnight() {
+      const now = new Date();
+      const nextMidnight = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() + 1,
+        0,
+        0,
+        0,
+      );
+
+      const msUntilMidnight = nextMidnight.getTime() - now.getTime();
+      setTimeout(() => {
+        task();
+        scheduleMidnight();
+      }, msUntilMidnight);
+    }
+    scheduleMidnight();
+  }
+
+  const nextRound = async () => {
+    await fetch(`${VITE_API_URL}/api/next-round?gameId=${game_id}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        playerId: player_id,
-        gameId: game_id,
-        score: points,
-      }),
-    });
-    await fetch(`${VITE_API_URL}/api/is-playing`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        playerId: player_id,
-        gameId: game_id,
-      }),
     });
   };
+
+  scheduleTaskAtMidnight(() => {
+    fetch(`${VITE_API_URL}/api/next-round?gameId=${game_id}`, {
+      method: "POST",
+    });
+  });
 
   if (loading) {
     return <div> </div>;
@@ -101,8 +125,11 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (
-        <p>Mission accomplie à demain pour une nouvelle bonne action</p>
+        <p>Mission accomplie ! À demain pour une nouvelle bonne action</p>
       )}
+      <button type="button" onClick={nextRound}>
+        Jour suivant
+      </button>
     </div>
   );
 }
