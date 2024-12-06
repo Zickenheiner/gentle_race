@@ -1,9 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Dashboard.css";
 import { useEffect, useState } from "react";
+import lapIcon from "../assets/images/circuit.png";
 import type { Game, Player } from "../types/type";
 const { VITE_API_URL } = import.meta.env;
 import blueCar from "../assets/images/blue_car.svg";
+import finishLine from "../assets/images/finish_line.png";
 import greenCar from "../assets/images/green_car.svg";
 import orangeCar from "../assets/images/orange_car.svg";
 import purpleCar from "../assets/images/purple_car.svg";
@@ -123,9 +125,14 @@ export default function Dashboard() {
             src={cars[`${currentPlayer?.color}Car`]}
             alt=""
           />
-          <p>{currentPlayer?.name}</p>
+          <div>
+            <p>{currentPlayer?.name}</p>
+          </div>
         </div>
-        <p>Jour {game?.round}</p>
+        <div className="lap-container">
+          <img className="lap-icon" src={lapIcon} alt="" />
+          <p>Jour {game?.round}</p>
+        </div>
       </div>
       <div className="global-score-container">
         {game?.allPlayers
@@ -149,6 +156,7 @@ export default function Dashboard() {
               <p className="position-of-player">{`${game.allPlayers.length - index > 1 ? `${game.allPlayers.length - index}ème` : `${game.allPlayers.length - index}er`} `}</p>
             </div>
           ))}
+        <img className="finish-line" src={finishLine} alt="" />
       </div>
       {!currentPlayer?.isPlaying ? (
         <div className="action-container">
