@@ -16,4 +16,5 @@ export interface Player {
   score: number;
   color: string;
   actionID: number;
+  isPlaying: boolean;
 }
