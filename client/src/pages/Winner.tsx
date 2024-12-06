@@ -21,9 +21,9 @@ export default function Winner() {
   return (
     <div className="winner-container">
       <h1>
-        Bravo 🏆{winnerPlayer?.name}🏆,
+        Bravo 🏆 {winnerPlayer?.name} 🏆,
         <br />
-        tu es le/la plus bienveillant(e)
+        tu es le/la plus malveillant(e)
       </h1>
       <img
         className="winner-player-img"
